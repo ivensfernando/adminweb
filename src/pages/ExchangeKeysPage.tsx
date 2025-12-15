@@ -266,7 +266,7 @@ const ExchangeKeysPage = () => {
                 ...prev,
                 [exchangeKey]: {
                     ...current,
-                    runOnServerValue: checked
+                    runOnServer: checked
                 }
             };
         });
