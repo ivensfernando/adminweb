@@ -96,13 +96,13 @@ const WebhookCreate = () => {
         <Card sx={{ mt: 4 }}>
             <CardContent>
                 <Typography variant="h5" gutterBottom>
-                    Criar Webhook
+                    Create Webhook
                 </Typography>
                 <Create
                     mutationOptions={{
                         onSuccess: (data) => {
                             setCreatedWebhook(data as CreatedWebhook);
-                            notify('Webhook criado com sucesso');
+                            notify('Webhook created successfully.');
                         },
                     }}
                 >

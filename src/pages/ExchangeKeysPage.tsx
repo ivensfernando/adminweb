@@ -136,15 +136,21 @@ const ExchangeKeysPage = () => {
         };
 
         const parseBoolean = (value: any): boolean => {
+            console.log("parseBoolean",value);
             if (typeof value === 'boolean') {
+                console.log("typeof value === 'boolean'")
                 return value;
             }
             if (typeof value === 'string') {
-                return ['true', '1', 'yes', 'on'].includes(value.toLowerCase());
+                console.log("typeof value === 'string'")
+                const normalized = value.trim().toLowerCase();
+                return ['true', '1', 'yes', 'on'].includes(normalized);
             }
             if (typeof value === 'number') {
+                console.log("typeof value === 'number'")
                 return value === 1;
             }
+            console.log("return false;")
             return false;
         };
 
@@ -185,7 +191,8 @@ const ExchangeKeysPage = () => {
                     const hasApiKey = parseBoolean(extractValue(entry, 'hasApiKey'));
                     const hasApiSecret = parseBoolean(extractValue(entry, 'hasApiSecret'));
                     const hasApiPassphrase = parseBoolean(extractValue(entry, 'hasApiPassphrase'));
-                    const runOnServer = parseBoolean(showInFormsValue ?? runOnServerValue);
+                    const runOnServer =  extractValue(entry, 'runOnServer');
+                    // parseBoolean(showInFormsValue ?? runOnServerValue);
 
                     nextFormValues[exchangeKey] = {
                         apiKey: String(apiKey ?? ''),
