@@ -113,8 +113,8 @@ const OrdersList = () => {
                                 second: '2-digit',
                             }}
                         />
-                        <TextField source="orderId" label="Order ID" />
-                        <TextField source="uuid" label="UUID" />
+                        {/*<TextField source="orderId" label="Order ID" />*/}
+                        {/*<TextField source="uuid" label="UUID" />*/}
                         <FunctionField
                             label="Exchange"
                             render={(record: any) => record?.exchangeName ?? record?.exchangeId ?? record?.exchange?.name ?? '-'}
