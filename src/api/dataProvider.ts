@@ -1,5 +1,5 @@
 // src/api/dataProvider.ts
-import { fetchUtils } from 'react-admin';
+import { fetchUtils, HttpError } from 'react-admin';
 // import simpleRestProvider from 'ra-data-simple-rest';
 import jsonServerProvider from 'ra-data-json-server';
 import { API_V1_URL } from '../config/api';
@@ -17,13 +17,27 @@ const apiRootUrl = apiUrl.replace(/\/api\/v1\/?$/, '');
 // };
 
 // 👇 This wrapper adds `credentials: 'include'` to every fetch call
-const httpClient = (url: string, options: fetchUtils.Options = {}) => {
-    console.log('options ',options);
+const httpClient = async (url: string, options: fetchUtils.Options = {}) => {
+    console.log('options ', options);
     options.credentials = 'include';
-    return fetchUtils.fetchJson(url, options).then((res) => {
-        console.log('Response:', res.json);
-        return res;
-    });
+
+    try {
+        const response = await fetchUtils.fetchJson(url, options);
+        console.log('Response:', response.json);
+        return response;
+    } catch (error) {
+        console.error('API request failed:', error);
+
+        if (error instanceof HttpError) {
+            throw error;
+        }
+
+        throw new HttpError(
+            'API unavailable. Please try again later.',
+            0,
+            {}
+        );
+    }
 };
 
 // const httpClient = (url, options = {}) => {

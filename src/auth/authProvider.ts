@@ -3,9 +3,18 @@ import { API_V1_URL } from '../config/api';
 import { Credentials } from '../types/auth';
 import { UserIdentity } from '../types/user';
 
+const safeFetch = async (input: RequestInfo | URL, init?: RequestInit, fallbackMessage = 'API indisponível. Tente novamente mais tarde.') => {
+  try {
+    return await fetch(input, init);
+  } catch (error) {
+    console.error('API indisponível ou inacessível', error);
+    throw new Error(fallbackMessage);
+  }
+};
+
 const authProvider = {
   login: async ({ username, password }: Credentials) => {
-    const res = await fetch(`${API_V1_URL}/auth/login`, {
+    const res = await safeFetch(`${API_V1_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -20,18 +29,18 @@ const authProvider = {
   },
 
   logout: async () => {
-    await fetch(`${API_V1_URL}/logout`, {
+    await safeFetch(`${API_V1_URL}/logout`, {
       method: 'POST',
       credentials: 'include',
     });
     return Promise.resolve();
   },
   checkAuth: async () => {
-    const res = await fetch(`${API_V1_URL}/me`, {
+    const res = await safeFetch(`${API_V1_URL}/me`, {
       method: 'GET',
       credentials: 'include',
     });
-    return res.ok ? Promise.resolve() : Promise.reject();
+    return res.ok ? Promise.resolve() : Promise.reject(new Error('API indisponível. Tente novamente mais tarde.'));
   },
   checkError: ({ status }: { status: number }) => {
     return status === 401 || status === 403 ? Promise.reject() : Promise.resolve();
@@ -39,7 +48,7 @@ const authProvider = {
   getPermissions: () => Promise.resolve(),
   getIdentity: async (): Promise<UserIdentity> => {
     try {
-      const res = await fetch(`${API_V1_URL}/me`, {
+      const res = await safeFetch(`${API_V1_URL}/me`, {
         method: 'GET',
         credentials: 'include',
       });
