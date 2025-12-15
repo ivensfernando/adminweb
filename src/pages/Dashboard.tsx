@@ -1,7 +1,8 @@
 // src/pages/Dashboard.tsx
-import { useGetIdentity } from 'react-admin';
+import { useAuthenticated, useGetIdentity } from 'react-admin';
 
 const Dashboard = () => {
+    useAuthenticated();
     const { data: identity } = useGetIdentity();
 
     return (

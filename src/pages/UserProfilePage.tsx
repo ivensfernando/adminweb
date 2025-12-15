@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, TextField, Typography, Box, Stack } from '@mui/material';
-import { useGetIdentity } from 'react-admin';
+import { useAuthenticated, useGetIdentity } from 'react-admin';
 import { Link as RouterLink } from 'react-router-dom';
 import type { UserIdentity } from '../types/user';
 
@@ -10,6 +10,7 @@ const getDisplayName = (identity?: UserIdentity) => {
 };
 
 export default function UserProfilePage() {
+    useAuthenticated();
     // ✅ não passe <UserIdentity>; o genérico é do ERRO
     const { data: identityRaw, isLoading } = useGetIdentity();
     const identity = identityRaw as UserIdentity | undefined;

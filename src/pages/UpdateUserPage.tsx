@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
 import { Box, Button, Card, CardContent, Stack, TextField, Typography } from '@mui/material';
-import { useGetIdentity, useNotify, useRedirect } from 'react-admin';
+import { useAuthenticated, useGetIdentity, useNotify, useRedirect } from 'react-admin';
 import { Link as RouterLink } from 'react-router-dom';
 
 import { API_V1_URL } from '../config/api';
@@ -34,6 +34,7 @@ const mapIdentityToForm = (identity?: UserIdentity): ProfileFormState => ({
 });
 
 const UpdateUserPage = () => {
+    useAuthenticated();
     const notify = useNotify();
     const redirect = useRedirect();
     // const { data: identityData, isLoading } = useGetIdentity();

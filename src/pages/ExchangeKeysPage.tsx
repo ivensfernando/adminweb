@@ -18,7 +18,7 @@ import {
     DialogActions
 } from '@mui/material';
 import { Visibility, VisibilityOff, Close as CloseIcon } from '@mui/icons-material';
-import { useGetList, useNotify } from 'react-admin';
+import { useAuthenticated, useGetList, useNotify } from 'react-admin';
 import { API_V1_URL } from '../config/api';
 
 type FieldName = 'apiKey' | 'apiSecret' | 'apiPassphrase';
@@ -53,6 +53,7 @@ const getDefaultFormValues = (): FormValues => ({
 });
 
 const ExchangeKeysPage = () => {
+    useAuthenticated();
     const { data: exchanges, isLoading: exchangesLoading } = useGetList('lookup/exchanges');
     const notify = useNotify();
     const [fieldVisibility, setFieldVisibility] = useState<VisibilityState>({});
