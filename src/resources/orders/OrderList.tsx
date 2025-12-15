@@ -117,31 +117,48 @@ const OrdersList = () => {
                         {/*<TextField source="uuid" label="UUID" />*/}
                         <FunctionField
                             label="Exchange"
-                            render={(record: any) => record?.exchangeName ?? record?.exchangeId ?? record?.exchange?.name ?? '-'}
+                            render={(record: any) =>
+                                record?.exchangeName ??
+                                record?.exchangeId ??
+                                record?.exchange?.name ??
+                                record?.exchange?.code ??
+                                record?.exchange?.slug ??
+                                '-'
+                            }
                         />
                         <TextField source="symbol" label="Symbol" />
                         <TextField source="side" label="Side" />
                         <TextField source="orderType" label="Type" />
-                        <TextField
-                            source="direction"
+                        <FunctionField
                             label="Direction"
                             render={(record: any) => record?.direction ?? record?.pos_side ?? record?.position_side ?? '-'}
                         />
                         <NumberField source="price" label="Price" />
-                        <NumberField source="contract_quantity" label="Qty" />
-                        <NumberField source="leverage" label="Leverage" />
-                        <NumberField source="pnl" label="PnL" />
                         <FunctionField
-                            label="Positions"
+                            label="Qty"
                             render={(record: any) =>
-                                Array.isArray(record?.positions)
-                                    ? record.positions
-                                          .map((position: any) => position?.label ?? position?.exchangeId ?? position?.id)
-                                          .filter(Boolean)
-                                          .join(', ')
-                                    : '-'
+                                record?.quantity ??
+                                record?.contract_quantity ??
+                                record?.qty ??
+                                record?.size ??
+                                record?.amount ??
+                                '-'
                             }
                         />
+                        <TextField source="status" label="Status" />
+                        <NumberField source="leverage" label="Leverage" />
+                        {/*<NumberField source="pnl" label="PnL" />*/}
+                        {/*<FunctionField*/}
+                        {/*    label="Positions"*/}
+                        {/*    render={(record: any) =>*/}
+                        {/*        Array.isArray(record?.positions)*/}
+                        {/*            ? record.positions*/}
+                        {/*                  .map((position: any) => position?.label ?? position?.exchangeId ?? position?.id)*/}
+                        {/*                  .filter(Boolean)*/}
+                        {/*                  .join(', ')*/}
+                        {/*            : '-'*/}
+                        {/*    }*/}
+                        {/*/>*/}
                     </Datagrid>
                 </List>
                 <Box

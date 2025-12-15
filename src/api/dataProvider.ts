@@ -89,6 +89,8 @@ const dataProvider = {
                     record?.exchange?.code;
 
                 const exchangeName =
+                    record?.exchangeName ??
+                    record?.exchange_name ??
                     record?.exchange?.name ??
                     record?.exchange?.label ??
                     record?.exchange?.title ??
@@ -99,6 +101,13 @@ const dataProvider = {
                 const orderType = record?.order_type ?? record?.type;
                 const direction = record?.pos_side ?? record?.position_side;
                 const createdAt = record?.createdAt ?? record?.created_at;
+                const quantity =
+                    record?.quantity ??
+                    record?.contract_quantity ??
+                    record?.qty ??
+                    record?.size ??
+                    record?.amount;
+                const status = record?.status ?? record?.status_text ?? record?.order_status;
 
                 return id
                     ? {
@@ -107,6 +116,8 @@ const dataProvider = {
                           orderId,
                           exchangeId,
                           exchangeName,
+                          quantity,
+                          status,
                           orderType,
                           direction,
                           createdAt,

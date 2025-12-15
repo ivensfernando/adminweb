@@ -42,12 +42,12 @@ export const PageMenu = () => {
                     onClick={handleClose}
                     leftIcon={<DashboardIcon fontSize="small" />}
                 />
-                <MenuItemLink
-                    to="/trades"
-                    primaryText="Trades"
-                    onClick={handleClose}
-                    leftIcon={<ListIcon fontSize="small" />}
-                />
+                {/*<MenuItemLink*/}
+                {/*    to="/trades"*/}
+                {/*    primaryText="Trades"*/}
+                {/*    onClick={handleClose}*/}
+                {/*    leftIcon={<ListIcon fontSize="small" />}*/}
+                {/*/>*/}
                 <MenuItemLink
                     to="/orders"
                     primaryText="Orders"
