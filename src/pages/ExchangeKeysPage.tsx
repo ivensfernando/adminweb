@@ -29,7 +29,7 @@ type FormValues = {
     apiKey: string;
     apiSecret: string;
     apiPassphrase: string;
-    showInTrade: boolean;
+    runOnServer: boolean;
 };
 
 type SavingState = Record<string, boolean>;
@@ -48,7 +48,8 @@ const getDefaultFormValues = (): FormValues => ({
     apiKey: '',
     apiSecret: '',
     apiPassphrase: '',
-    showInTrade: false
+    runOnServer: false
+
 });
 
 const ExchangeKeysPage = () => {
@@ -180,17 +181,17 @@ const ExchangeKeysPage = () => {
                     const apiSecret = extractValue(entry, 'apiSecret') ?? '';
                     const apiPassphrase = extractValue(entry, 'apiPassphrase') ?? '';
                     const showInFormsValue = extractValue(entry, 'showInForms');
-                    const showInTradeValue = extractValue(entry, 'showInTrade');
+                    const runOnServerValue = extractValue(entry, 'runOnServer');
                     const hasApiKey = parseBoolean(extractValue(entry, 'hasApiKey'));
                     const hasApiSecret = parseBoolean(extractValue(entry, 'hasApiSecret'));
                     const hasApiPassphrase = parseBoolean(extractValue(entry, 'hasApiPassphrase'));
-                    const showInTrade = parseBoolean(showInFormsValue ?? showInTradeValue);
+                    const runOnServer = parseBoolean(showInFormsValue ?? runOnServerValue);
 
                     nextFormValues[exchangeKey] = {
                         apiKey: String(apiKey ?? ''),
                         apiSecret: String(apiSecret ?? ''),
                         apiPassphrase: String(apiPassphrase ?? ''),
-                        showInTrade
+                        runOnServer
                     };
 
                     nextMetadata[exchangeKey] = {
@@ -203,7 +204,7 @@ const ExchangeKeysPage = () => {
                         hasApiKey ||
                         hasApiSecret ||
                         hasApiPassphrase ||
-                        showInTrade
+                        runOnServerValue
                     );
                 });
 
@@ -265,7 +266,7 @@ const ExchangeKeysPage = () => {
                 ...prev,
                 [exchangeKey]: {
                     ...current,
-                    showInTrade: checked
+                    runOnServerValue: checked
                 }
             };
         });
@@ -312,7 +313,7 @@ const ExchangeKeysPage = () => {
 
         const payload: Record<string, any> = {
             exchangeId,
-            showInForms: values.showInTrade
+            runOnServer: values.runOnServer
         };
 
         if (trimmedApiKey) {
@@ -358,7 +359,7 @@ const ExchangeKeysPage = () => {
                     updatedMetadata.hasApiKey ||
                     updatedMetadata.hasApiSecret ||
                     updatedMetadata.hasApiPassphrase ||
-                    values.showInTrade
+                    values.runOnServer
                 )
             }));
 
@@ -369,7 +370,7 @@ const ExchangeKeysPage = () => {
                     apiKey: '',
                     apiSecret: '',
                     apiPassphrase: '',
-                    showInTrade: values.showInTrade
+                    runOnServer: values.runOnServer
                 }
             }));
 
@@ -595,12 +596,12 @@ const ExchangeKeysPage = () => {
                                     control={(
                                         <Checkbox
                                             color="primary"
-                                            checked={values.showInTrade}
+                                            checked={values.runOnServer}
                                             onChange={(event) => handleCheckboxChange(exchangeKey, event.target.checked)}
                                             disabled={isBusy}
                                         />
                                     )}
-                                    label="Show in forms"
+                                    label="Run on server"
                                 />
                                 {renderTextField(
                                     exchangeKey,
@@ -620,15 +621,15 @@ const ExchangeKeysPage = () => {
                                     metadata,
                                     errors.apiSecret
                                 )}
-                                {renderTextField(
-                                    exchangeKey,
-                                    'apiPassphrase',
-                                    'API Passphrase',
-                                    values.apiPassphrase,
-                                    isBusy,
-                                    metadata,
-                                    errors.apiPassphrase
-                                )}
+                                {/*{renderTextField(*/}
+                                {/*    exchangeKey,*/}
+                                {/*    'apiPassphrase',*/}
+                                {/*    'API Passphrase',*/}
+                                {/*    values.apiPassphrase,*/}
+                                {/*    isBusy,*/}
+                                {/*    metadata,*/}
+                                {/*    errors.apiPassphrase*/}
+                                {/*)}*/}
                                 <Box display="flex" justifyContent="flex-end" mt={2} gap={1}>
                                     {hasTestableKeys && (
                                         <Button
