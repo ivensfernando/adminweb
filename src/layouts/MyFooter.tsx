@@ -9,7 +9,7 @@ const MyFooter = () => (
         borderTop="1px solid #ccc"
     >
         <Typography variant="body2" color="textSecondary">
-            © 2025 Trading Journal
+            © 2025 Biidin Admin
         </Typography>
     </Box>
 );

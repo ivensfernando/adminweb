@@ -51,6 +51,76 @@ const baseProvider = jsonServerProvider(apiUrl, httpClient);
 
 const dataProvider = {
     ...baseProvider,
+    getList: async (resource: string, params: any) => {
+        if (resource === 'orders') {
+            const { page, perPage } = params.pagination || { page: 1, perPage: 20 };
+            const rawFilters = params.filter || {};
+            const filters = Object.fromEntries(
+                Object.entries(rawFilters).filter(([, value]) => value !== '' && value !== undefined && value !== null)
+            );
+
+            const queryParams: Record<string, any> = {
+                page,
+                pageSize: perPage,
+                ...filters,
+            };
+
+            const queryString = fetchUtils.queryParameters(queryParams);
+            const url = `${apiUrl}/${resource}?${queryString}`;
+            const response = await httpClient(url);
+            const payload = response.json?.data ?? response.json ?? {};
+            const records = Array.isArray(payload?.items)
+                ? payload.items
+                : Array.isArray(payload)
+                    ? payload
+                    : Array.isArray(payload?.data)
+                        ? payload.data
+                        : [];
+
+            const data = records.map((record: any) => {
+                const id = record?.id ?? record?.orderId ?? record?.order_id ?? record?.uuid;
+
+                const orderId = record?.orderId ?? record?.order_id;
+                const exchangeId =
+                    record?.exchangeId ??
+                    record?.exchange_id ??
+                    record?.exchange?.id ??
+                    record?.exchange?.slug ??
+                    record?.exchange?.code;
+
+                const exchangeName =
+                    record?.exchange?.name ??
+                    record?.exchange?.label ??
+                    record?.exchange?.title ??
+                    record?.exchange?.slug ??
+                    record?.exchange?.code ??
+                    exchangeId;
+
+                const orderType = record?.order_type ?? record?.type;
+                const direction = record?.pos_side ?? record?.position_side;
+                const createdAt = record?.createdAt ?? record?.created_at;
+
+                return id
+                    ? {
+                          ...record,
+                          id,
+                          orderId,
+                          exchangeId,
+                          exchangeName,
+                          orderType,
+                          direction,
+                          createdAt,
+                      }
+                    : record;
+            });
+
+            const total = payload?.total ?? payload?.totalCount ?? data.length;
+
+            return { data, total };
+        }
+
+        return baseProvider.getList(resource, params);
+    },
     create: async (resource: string, params: any) => {
         const res = await httpClient(`${apiUrl}/${resource}`, {
             method: 'POST',

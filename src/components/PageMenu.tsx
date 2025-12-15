@@ -6,6 +6,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ListIcon from '@mui/icons-material/List';
 import HttpIcon from '@mui/icons-material/Http';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import SearchIcon from '@mui/icons-material/Search';
 
 export const PageMenu = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -46,6 +47,12 @@ export const PageMenu = () => {
                     primaryText="Trades"
                     onClick={handleClose}
                     leftIcon={<ListIcon fontSize="small" />}
+                />
+                <MenuItemLink
+                    to="/orders"
+                    primaryText="Orders"
+                    onClick={handleClose}
+                    leftIcon={<SearchIcon fontSize="small" />}
                 />
                 <MenuItemLink
                     to="/webhooks"

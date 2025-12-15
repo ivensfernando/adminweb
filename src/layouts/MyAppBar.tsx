@@ -56,7 +56,7 @@ const MyAppBar = React.forwardRef((props: AppBarProps, ref) => {
                         transform: 'translateX(-50%)',
                     }}
                 >
-                    Trading Journal
+                    Biidin Admin
                 </Typography>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: 'auto' }}>
