@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b5954232-ad8e-45f2-9cfd-8069933af455" name="Changes" comment="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;.">
+      <change beforePath="$PROJECT_DIR$/src/config/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/api.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="36nP1tjcl0LlDg8Oj5NLGuROGtT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/opt/js/adminweb",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/home/ivensdev/app/adminweb/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b5954232-ad8e-45f2-9cfd-8069933af455" name="Changes" comment="" />
+      <created>1765639150164</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765639150164</updated>
+      <workItem from="1765639151255" duration="26228000" />
+    </task>
+    <task id="LOCAL-00001" summary="Add initial project setup with Makefile, React files, and basic components&#10;&#10;- Created Makefile with package manager detection and essential workflows.&#10;- Set up React project structure with index.tsx and basic components.&#10;- Added pages like Dashboard, UserProfilePage, and ExchangeKeysPage.&#10;- Included utility files and assets (e.g., logo.svg).&#10;- Configured ESLint, Prettier, and environment variables.">
+      <option name="closed" value="true" />
+      <created>1765820913713</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1765820913713</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Refactor ExchangeKeysPage: Replace `showInTrade` with `runOnServer` property">
+      <option name="closed" value="true" />
+      <created>1765828113602</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1765828113602</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix ExchangeKeysPage: Correct state property name from `runOnServerValue` to `runOnServer`">
+      <option name="closed" value="true" />
+      <created>1765829670070</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1765829670070</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Refactor ExchangeKeysPage: Enhance `parseBoolean` logic and remove unused `showInFormsValue`. Update WebhookCreate to use English text.">
+      <option name="closed" value="true" />
+      <created>1765832280552</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1765832280552</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add `useAuthenticated` to pages for authentication enforcement">
+      <option name="closed" value="true" />
+      <created>1765836283814</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1765836283814</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Enhance error handling for API requests: add `HttpError` handling in `httpClient` and introduce `safeFetch` utility for robust API calls in `authProvider`.">
+      <option name="closed" value="true" />
+      <created>1765837616766</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1765837616766</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;.">
+      <option name="closed" value="true" />
+      <created>1765840298352</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1765840298352</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;.">
+      <option name="closed" value="true" />
+      <created>1765840786768</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1765840786768</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;.">
+      <option name="closed" value="true" />
+      <created>1765842241343</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1765842241343</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;.">
+      <option name="closed" value="true" />
+      <created>1765844944250</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1765844944250</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add initial project setup with Makefile, React files, and basic components&#10;&#10;- Created Makefile with package manager detection and essential workflows.&#10;- Set up React project structure with index.tsx and basic components.&#10;- Added pages like Dashboard, UserProfilePage, and ExchangeKeysPage.&#10;- Included utility files and assets (e.g., logo.svg).&#10;- Configured ESLint, Prettier, and" />
+    <MESSAGE value="Add initial project setup with Makefile, React files, and basic components&#10;&#10;- Created Makefile with package manager detection and essential workflows.&#10;- Set up React project structure with index.tsx and basic components.&#10;- Added pages like Dashboard, UserProfilePage, and ExchangeKeysPage.&#10;- Included utility files and assets (e.g., logo.svg).&#10;- Configured ESLint, Prettier, and environment variables." />
+    <MESSAGE value="Refactor ExchangeKeysPage: Replace `showInTrade` with `runOnServer` property" />
+    <MESSAGE value="Fix ExchangeKeysPage: Correct state property name from `runOnServerValue` to `runOnServer`" />
+    <MESSAGE value="Refactor ExchangeKeysPage: Enhance `parseBoolean` logic and remove unused `showInFormsValue`. Update WebhookCreate to use English text." />
+    <MESSAGE value="Add `useAuthenticated` to pages for authentication enforcement" />
+    <MESSAGE value="Enhance error handling for API requests: add `HttpError` handling in `httpClient` and introduce `safeFetch` utility for robust API calls in `authProvider`." />
+    <MESSAGE value="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;." />
+  </component>
+</project>
