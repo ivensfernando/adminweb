@@ -1,0 +1,39 @@
+image: docker:23.0
+services:
+  - docker:23.0-dind
+
+variables:
+  ECR_REPO: rg.fr-par.scw.cloud/comentarismoregistry
+  CONTAINER_IMAGE: $ECR_REPO/biidinwebapi:${CI_COMMIT_SHORT_SHA}
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  only:
+    - main
+  script:
+    - docker login ${ECR_REPO} -u nologin -p ${DOCKER_PSW}
+    - IMAGE_TAG="$(echo $CI_COMMIT_SHA | head -c 8)"
+    - docker build -t ${CONTAINER_IMAGE} .
+    - docker tag ${CONTAINER_IMAGE} ${CONTAINER_IMAGE}
+    - docker tag ${CONTAINER_IMAGE} $ECR_REPO/biidinwebapi:latest
+    - docker push ${CONTAINER_IMAGE}
+    - docker push $ECR_REPO/biidinwebapi:latest
+
+deploy-stage:
+  stage: deploy
+  only:
+    - main
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl config set-cluster comentarismocluster --server="${SERVER}" --insecure-skip-tls-verify=true
+#    - kubectl config set clusters.comentarismocluster.certificate-authority-data ${CERTIFICATE_AUTHORITY_DATA}
+    - kubectl config set-credentials gitlab --token="${USER_TOKEN}"
+    - kubectl config set-context default --cluster=comentarismocluster --user=gitlab
+    - kubectl config use-context default
+    - CHART_VERSION=$(grep version helm/biidinwebapi/Chart.yaml | awk '{print $2}')
+    - helm package --app-version=$GITHUB_REF_NAME-$COMMIT_SHA_SHORT helm/biidinwebapi
+    - helm upgrade --install biidinwebapi -f ./helm/biidinwebapi/values.com.yaml ./biidinwebapi-$CHART_VERSION.tgz --set biidinwebapi.tag=latest --namespace strategyexecutor
