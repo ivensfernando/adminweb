@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "biidinwebapi.fullname" . }}
+  labels:
+    app: {{ template "biidinwebapi.name" . }}
+    chart: {{ template "biidinwebapi.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.externalPort }}
+      targetPort: {{ .Values.service.internalPort }}
+      protocol: TCP
+      name: {{ .Values.service.name }}
+  selector:
+    app: {{ template "biidinwebapi.name" . }}
+    release: {{ .Release.Name }}
