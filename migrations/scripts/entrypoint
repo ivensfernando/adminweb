@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+
+
+if [ -z "${DATABASE_URL}" ]; then
+  echo "FATAL: DATABASE_URL is not defined"
+  exit 1
+fi
+
+
+
+
+exec "$@"
