@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5954232-ad8e-45f2-9cfd-8069933af455" name="Changes" comment="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;.">
-      <change beforePath="$PROJECT_DIR$/src/config/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/api.ts" afterDir="false" />
-    </list>
+    <list default="true" id="b5954232-ad8e-45f2-9cfd-8069933af455" name="Changes" comment="Add Orders feature: Implement `OrderList` component, API support, and integrate with UI&#10;&#10;- Created `OrderList` component with filters and enhanced data display.&#10;- Updated `dataProvider` to support fetching order data with `getList`.&#10;- Integrated Orders resource in `App` routes and `PageMenu`.&#10;- Rebranded footer and app bar to &quot;Biidin Admin&quot;." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,16 +13,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="36nP1tjcl0LlDg8Oj5NLGuROGtT" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -34,8 +32,9 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/opt/js/adminweb",
+    "last_opened_file_path": "/home/ivensdev/app/adminweb/biidinweb",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -45,6 +44,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/biidinweb" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -60,6 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1765639150164</updated>
       <workItem from="1765639151255" duration="26228000" />
+      <workItem from="1766753802687" duration="3272000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup with Makefile, React files, and basic components&#10;&#10;- Created Makefile with package manager detection and essential workflows.&#10;- Set up React project structure with index.tsx and basic components.&#10;- Added pages like Dashboard, UserProfilePage, and ExchangeKeysPage.&#10;- Included utility files and assets (e.g., logo.svg).&#10;- Configured ESLint, Prettier, and environment variables.">
       <option name="closed" value="true" />
