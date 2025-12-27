@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "biidinwebapi.fullname" . }}
+  labels:
+    app: {{ template "biidinwebapi.name" . }}
+    chart: {{ template "biidinwebapi.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "biidinwebapi.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "biidinwebapi.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.biidinwebapi.image }}:{{ .Values.biidinwebapi.tag }}"
+          imagePullPolicy: {{ .Values.biidinwebapi.pullPolicy }}
+          env:
+          {{- range $key, $value := .Values.biidinwebapi.env }}
+          - name: {{ $key | quote }}
+            value: {{ $value | quote }}
+          {{- end }}
+          {{- range $key, $value := .Values.biidinwebapi.envsec }}
+          - name: {{ $key | quote }}
+            valueFrom:
+              secretKeyRef:
+                name: biidinwebapi-secret
+                key: {{ $value | quote }}
+          {{- end }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.healthcheck.url }}
+              port: {{ .Values.healthcheck.port }}
+            initialDelaySeconds: 120
+            timeoutSeconds: 10
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.healthcheck.url }}
+              port: {{ .Values.healthcheck.port }}
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+            periodSeconds: 15
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Information</title>
+    <link rel="stylesheet" href="/static/css/base.css"/>
+</head>
+
+<body>
+<div class="sidebar">
+    <a href="/auth/account">Account</a>
+    <a href="/api/pay">Pay</a>
+    <a href="/auth/logout">Logout</a>
+</div>
+<div class="content">
+    <div class="account-info">
+        <h2>Account API Key Information</h2>
+        <div class="account-item">
+            <p class="key-label">Key (Unsafe):</p>
+            <p class="key-value" id="keyUnsafe"></p>
+        </div>
+        <div class="account-item">
+            <p class="key-label">Usage Limit:</p>
+            <p class="key-value" id="usageLimit"></p>
+        </div>
+        <div class="account-item">
+            <p class="key-label">Usage Count:</p>
+            <p class="key-value" id="usageCount"></p>
+        </div>
+    </div>
+</div>
+
+<script src="/static/loader.js" defer></script>
+<script src="/static/account.js" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Return</title>
+
+    <link rel="stylesheet" href="/static/css/base.css"/>
+</head>
+<body>
+<div class="sidebar">
+    <a href="/auth/account">Account</a>
+    <a href="/api/pay">Pay</a>
+    <a href="/auth/logout">Logout</a>
+</div>
+<div class="content">
+    <h1>Thank you!</h1>
+    <div class="message">
+        <p>You have paid.</p>
+        <p>Your API KEY is being generated and should be available on your account page soon.</p>
+        <p>You will be redirected to the account page in <span id="counter">10</span> seconds.</p>
+    </div>
+
+    <script>
+        // Counter for redirection
+        let timeLeft = 10;
+        const countdown = document.getElementById('counter');
+        const interval = setInterval(() => {
+            timeLeft -= 1;
+            countdown.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                window.location.href = "/auth/account";
+            }
+        }, 1000);
+    </script>
+
+    <div id="messages" role="alert"></div>
+</div>
+
+<script src="/static/loader.js" defer></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/static/utils.js" defer></script>
+<script src="/static/return.js" defer></script>
+
+</body>
+</html>
