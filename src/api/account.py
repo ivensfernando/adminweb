@@ -7,8 +7,10 @@ from pydantic.main import BaseModel
 from src.db.company import get_company_by_id, get_users_by_company_id, get_invitation_by_email, delete_invitation_by_id, \
     create_user_invitation
 from src.db.history import get_chat_history_count_by_genie_users_id, get_chat_history_count_by_company_id
+from src.db.bot_db import get_bot_conn
+from src.db.bot_helpers import get_bot_users_by_email, get_user_exchanges_by_user_ids
 from src.db.login_helpers import get_user_key_genie, getConn, generate_access_code, create_user, get_user_by_email, \
-    update_user_role, delete_user
+    update_user_role, delete_user, get_user_by_id
 from src.db.stripe_helpers import get_genie_users_payments_by_genie_users_id
 from src.db.utils import RECOMMEND_QUESTIONS, CustomJSONEncoder
 from src.email.mailgun import send_invite_via_mailgun
@@ -114,6 +116,25 @@ def get_users_by_company_id_func(request):
         )
     else:
         return JsonResponse({"error": "nothing found"}, status=404)
+
+
+@account_router.get("/get_user_exchages_options")
+def get_user_exchages_options(request):
+    token_data = request.auth
+    print(f"get_user_exchages_options, token_data={token_data}")
+
+    user_id = token_data["user_id"]
+    user = get_user_by_id(conn=getConn(), id=user_id)
+    if user is None:
+        return JsonResponse({"error": "user not found"}, status=404)
+
+    user_name = user["username"]
+    bot_users = get_bot_users_by_email(conn=get_bot_conn(), email=user_name)
+    if not bot_users:
+        return JsonResponse([], safe=False, status=200)
+    user_ids = [bot_user["id"] for bot_user in bot_users]
+    user_exchanges = get_user_exchanges_by_user_ids(conn=get_bot_conn(), user_ids=user_ids)
+    return JsonResponse(user_exchanges, safe=False, status=200)
 
 
 class InviteWorkspaceSchema(BaseModel):
