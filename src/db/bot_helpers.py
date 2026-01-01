@@ -66,3 +66,28 @@ def get_user_exchanges_by_user_ids(conn, user_ids):
     finally:
         cur.close()
         conn.close()
+
+
+def update_user_exchange_run_on_server(conn, user_exchange_id, run_on_server):
+    if conn is None:
+        return False
+    cur = conn.cursor()
+    try:
+        update = sql.SQL(
+            """
+            UPDATE user_exchanges
+            SET run_on_server = %s
+            WHERE id = %s
+            """
+        )
+        cur.execute(update, (run_on_server, user_exchange_id))
+        conn.commit()
+        return cur.rowcount > 0
+    except Error as e:
+        print(f"update_user_exchange_run_on_server, Database error: {e}")
+        traceback.print_exc()
+        conn.rollback()
+        return False
+    finally:
+        cur.close()
+        conn.close()

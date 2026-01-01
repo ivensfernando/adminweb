@@ -8,7 +8,8 @@ from src.db.company import get_company_by_id, get_users_by_company_id, get_invit
     create_user_invitation
 from src.db.history import get_chat_history_count_by_genie_users_id, get_chat_history_count_by_company_id
 from src.db.bot_db import get_bot_conn
-from src.db.bot_helpers import get_bot_users_by_email, get_user_exchanges_by_user_ids
+from src.db.bot_helpers import get_bot_users_by_email, get_user_exchanges_by_user_ids, \
+    update_user_exchange_run_on_server
 from src.db.login_helpers import get_user_key_genie, getConn, generate_access_code, create_user, get_user_by_email, \
     update_user_role, delete_user, get_user_by_id
 from src.db.stripe_helpers import get_genie_users_payments_by_genie_users_id
@@ -135,6 +136,32 @@ def get_user_exchages_options(request):
     user_ids = [bot_user["id"] for bot_user in bot_users]
     user_exchanges = get_user_exchanges_by_user_ids(conn=get_bot_conn(), user_ids=user_ids)
     return JsonResponse(user_exchanges, safe=False, status=200)
+
+
+class UpdateUserExchangesOptionsSchema(BaseModel):
+    id: int
+    run_on_server: bool
+
+
+@account_router.post("/update_user_exchages_options")
+def update_user_exchages_options(request, payload: UpdateUserExchangesOptionsSchema):
+    token_data = request.auth
+    print(f"update_user_exchages_options, token_data={token_data}")
+
+    user_id = token_data["user_id"]
+    user = get_user_by_id(conn=getConn(), id=user_id)
+    if user is None:
+        return JsonResponse({"error": "user not found"}, status=404)
+
+    updated = update_user_exchange_run_on_server(
+        conn=get_bot_conn(),
+        user_exchange_id=payload.id,
+        run_on_server=payload.run_on_server,
+    )
+    if not updated:
+        return JsonResponse({"error": "update failed"}, status=404)
+
+    return JsonResponse({"success": True}, status=200)
 
 
 class InviteWorkspaceSchema(BaseModel):
