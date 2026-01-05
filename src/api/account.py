@@ -9,7 +9,7 @@ from src.db.company import get_company_by_id, get_users_by_company_id, get_invit
 from src.db.history import get_chat_history_count_by_genie_users_id, get_chat_history_count_by_company_id
 from src.db.bot_db import get_bot_conn
 from src.db.bot_helpers import get_bot_users_by_email, get_user_exchanges_by_user_ids, \
-    update_user_exchange_run_on_server
+    update_user_bots_options
 from src.db.login_helpers import get_user_key_genie, getConn, generate_access_code, create_user, get_user_by_email, \
     update_user_role, delete_user, get_user_by_id
 from src.db.stripe_helpers import get_genie_users_payments_by_genie_users_id
@@ -119,10 +119,10 @@ def get_users_by_company_id_func(request):
         return JsonResponse({"error": "nothing found"}, status=404)
 
 
-@account_router.get("/get_user_exchages_options")
-def get_user_exchages_options(request):
+@account_router.get("/get_user_bots_options")
+def get_user_bots_options(request):
     token_data = request.auth
-    print(f"get_user_exchages_options, token_data={token_data}")
+    print(f"get_user_bots_options, token_data={token_data}")
 
     user_id = token_data["user_id"]
     user = get_user_by_id(conn=getConn(), id=user_id)
@@ -138,25 +138,62 @@ def get_user_exchages_options(request):
     return JsonResponse(user_exchanges, safe=False, status=200)
 
 
-class UpdateUserExchangesOptionsSchema(BaseModel):
+class UpdateUserBotsOptionsSchema(BaseModel):
     id: int
-    run_on_server: bool
+    run_on_server: Optional[bool] = None
+    order_size_percent: Optional[int] = None
+    weekend_holiday_multiplier: Optional[str] = None
+    dead_zone_multiplier: Optional[str] = None
+    asia_multiplier: Optional[str] = None
+    london_multiplier: Optional[str] = None
+    us_multiplier: Optional[str] = None
+    enable_no_trade_window: Optional[bool] = None
+    no_trade_window_orders_closed: Optional[bool] = None
+    strategy_name: Optional[str] = None
+    symbol: Optional[str] = None
+    timeframe: Optional[str] = None
 
 
-@account_router.post("/update_user_exchages_options")
-def update_user_exchages_options(request, payload: UpdateUserExchangesOptionsSchema):
+@account_router.post("/update_user_bots_options")
+def update_user_bots_options(request, payload: UpdateUserBotsOptionsSchema):
     token_data = request.auth
-    print(f"update_user_exchages_options, token_data={token_data}")
+    print(f"update_user_bots_options, token_data={token_data}")
 
     user_id = token_data["user_id"]
     user = get_user_by_id(conn=getConn(), id=user_id)
     if user is None:
         return JsonResponse({"error": "user not found"}, status=404)
 
-    updated = update_user_exchange_run_on_server(
+    update_fields = {}
+    if payload.run_on_server is not None:
+        update_fields["run_on_server"] = payload.run_on_server
+    if payload.order_size_percent is not None:
+        update_fields["order_size_percent"] = payload.order_size_percent
+    if payload.weekend_holiday_multiplier is not None:
+        update_fields["weekend_holiday_multiplier"] = payload.weekend_holiday_multiplier
+    if payload.dead_zone_multiplier is not None:
+        update_fields["dead_zone_multiplier"] = payload.dead_zone_multiplier
+    if payload.asia_multiplier is not None:
+        update_fields["asia_multiplier"] = payload.asia_multiplier
+    if payload.london_multiplier is not None:
+        update_fields["london_multiplier"] = payload.london_multiplier
+    if payload.us_multiplier is not None:
+        update_fields["us_multiplier"] = payload.us_multiplier
+    if payload.enable_no_trade_window is not None:
+        update_fields["enable_no_trade_window"] = payload.enable_no_trade_window
+    if payload.no_trade_window_orders_closed is not None:
+        update_fields["no_trade_window_orders_closed"] = payload.no_trade_window_orders_closed
+    if payload.strategy_name is not None:
+        update_fields["strategy_name"] = payload.strategy_name
+    if payload.symbol is not None:
+        update_fields["symbol"] = payload.symbol
+    if payload.timeframe is not None:
+        update_fields["timeframe"] = payload.timeframe
+
+    updated = update_user_bots_options(
         conn=get_bot_conn(),
         user_exchange_id=payload.id,
-        run_on_server=payload.run_on_server,
+        update_fields=update_fields,
     )
     if not updated:
         return JsonResponse({"error": "update failed"}, status=404)

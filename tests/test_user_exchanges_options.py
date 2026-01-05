@@ -82,7 +82,24 @@ class BotHelpersTests(unittest.TestCase):
         mock_cursor = MagicMock()
         mock_conn.cursor.return_value = mock_cursor
         mock_cursor.fetchall.return_value = [
-            (1, 10, 3, False, "binance"),
+            (
+                1,
+                10,
+                3,
+                False,
+                25,
+                "1.2",
+                "0.3",
+                "1.1",
+                "1.0",
+                "0.9",
+                True,
+                False,
+                "strategy",
+                "BTCUSDT",
+                "1h",
+                "binance",
+            ),
         ]
 
         result = get_user_exchanges_by_user_ids(mock_conn, [10])
@@ -95,7 +112,19 @@ class BotHelpersTests(unittest.TestCase):
                     "user_id": 10,
                     "exchange_id": 3,
                     "run_on_server": False,
+                    "order_size_percent": 25,
+                    "weekend_holiday_multiplier": "1.2",
+                    "dead_zone_multiplier": "0.3",
+                    "asia_multiplier": "1.1",
+                    "london_multiplier": "1.0",
+                    "us_multiplier": "0.9",
+                    "enable_no_trade_window": True,
+                    "no_trade_window_orders_closed": False,
+                    "strategy_name": "strategy",
+                    "symbol": "BTCUSDT",
+                    "timeframe": "1h",
                     "exchange_name": "binance",
+                    "display": "binance strategy BTCUSDT 1h",
                 }
             ],
         )
@@ -105,7 +134,7 @@ class BotHelpersTests(unittest.TestCase):
 
 
 class UserExchangesOptionsTests(unittest.TestCase):
-    def test_get_user_exchages_options_returns_list(self):
+    def test_get_user_bots_options_returns_list(self):
         account = import_account_module()
         with patch.object(account, "getConn") as mock_get_conn, \
                 patch.object(account, "get_bot_conn") as mock_get_bot_conn, \
@@ -122,12 +151,24 @@ class UserExchangesOptionsTests(unittest.TestCase):
                     "user_id": 10,
                     "exchange_id": 3,
                     "run_on_server": False,
+                    "order_size_percent": 25,
+                    "weekend_holiday_multiplier": "1.2",
+                    "dead_zone_multiplier": "0.3",
+                    "asia_multiplier": "1.1",
+                    "london_multiplier": "1.0",
+                    "us_multiplier": "0.9",
+                    "enable_no_trade_window": True,
+                    "no_trade_window_orders_closed": False,
+                    "strategy_name": "strategy",
+                    "symbol": "BTCUSDT",
+                    "timeframe": "1h",
                     "exchange_name": "binance",
+                    "display": "binance strategy BTCUSDT 1h",
                 }
             ]
 
             request = SimpleNamespace(auth={"user_id": 1})
-            response = account.get_user_exchages_options(request)
+            response = account.get_user_bots_options(request)
 
             self.assertEqual(response.status_code, 200)
             self.assertEqual(json.loads(response.content), [
@@ -136,11 +177,23 @@ class UserExchangesOptionsTests(unittest.TestCase):
                     "user_id": 10,
                     "exchange_id": 3,
                     "run_on_server": False,
+                    "order_size_percent": 25,
+                    "weekend_holiday_multiplier": "1.2",
+                    "dead_zone_multiplier": "0.3",
+                    "asia_multiplier": "1.1",
+                    "london_multiplier": "1.0",
+                    "us_multiplier": "0.9",
+                    "enable_no_trade_window": True,
+                    "no_trade_window_orders_closed": False,
+                    "strategy_name": "strategy",
+                    "symbol": "BTCUSDT",
+                    "timeframe": "1h",
                     "exchange_name": "binance",
+                    "display": "binance strategy BTCUSDT 1h",
                 }
             ])
 
-    def test_get_user_exchages_options_returns_empty_when_no_bot_users(self):
+    def test_get_user_bots_options_returns_empty_when_no_bot_users(self):
         account = import_account_module()
         with patch.object(account, "getConn") as mock_get_conn, \
                 patch.object(account, "get_bot_conn") as mock_get_bot_conn, \
@@ -152,7 +205,7 @@ class UserExchangesOptionsTests(unittest.TestCase):
             mock_get_bot_users_by_email.return_value = []
 
             request = SimpleNamespace(auth={"user_id": 1})
-            response = account.get_user_exchages_options(request)
+            response = account.get_user_bots_options(request)
 
             self.assertEqual(response.status_code, 200)
             self.assertEqual(json.loads(response.content), [])
